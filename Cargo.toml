@@ -8,6 +8,6 @@ edition = "2021"
 [dependencies]
 async-std = "1.12.0"
 clap = { version = "4.5.2", features = ["derive"] }
-griff = { version = "0.1.0", path = "../../griff/dev" }
+griff = { version = "0.1.0", path = "../griff" }
 libflate = "2.0.0"
 tempfile = "3.10.1"

@@ -1,3 +1,2 @@
-/dev/target
-/dev/*.lock
-/.idea
+/target
+/*.lock
