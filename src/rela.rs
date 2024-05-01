@@ -1,5 +1,5 @@
 use crate::clangd::ClangdUtility;
-use crate::symbols::{SymbolId, SymbolKind};
+use crate::symbols::SymbolId;
 
 use griff::ChunkStream;
 
@@ -29,6 +29,7 @@ pub struct Rela {
 impl ClangdUtility for Rela{}
 
 impl Rela {
+    #[allow(dead_code)]
     pub fn parse(buf: &ChunkStream) -> Vec<Rela> {
         let mut rela: Vec<Rela> = vec![];
         let mut cursor: usize = 0;

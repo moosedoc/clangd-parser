@@ -106,6 +106,7 @@ impl From<u8> for SymbolLanguage {
 
 #[derive(Debug, Clone, Default)]
 #[repr(u8)]
+#[allow(dead_code)]
 pub enum SymbolSubKind {
     #[default]
     None,
@@ -120,6 +121,7 @@ pub enum SymbolSubKind {
 
 #[derive(Debug, Clone, Default)]
 #[repr(u16)]
+#[allow(dead_code)]
 pub enum SymbolProperty {
     #[default]
     Unknown,
@@ -183,6 +185,7 @@ pub struct SymbolPosition {
 
 #[derive(Debug, Clone, Default)]
 #[repr(u16)]
+#[allow(dead_code)]
 pub enum SymbolOrigin {
     #[default]
     Unknown = 0,
@@ -232,7 +235,6 @@ pub struct SymbolIncludedHeader {
 }
 
 pub type SymbolId = [u8; 8];
-pub const SYMBOLID_EMPTY: SymbolId = [0; 8];
 
 #[derive(Debug, Clone, Default)]
 pub struct Symbol {

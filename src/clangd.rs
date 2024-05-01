@@ -1,6 +1,6 @@
 use std::fs;
 use std::path::PathBuf;
-use std::collections::HashMap;
+use std::collections::BTreeMap;
 
 use griff::*;
 
@@ -17,9 +17,9 @@ pub enum ParseError {
 }
 type ParseReturn = Result<ClangdFile, ParseError>;
 
-pub type ClangdFileMap = HashMap<String, ClangdFile>;
-pub type ClangdIdMap = HashMap<symbols::SymbolId, symbols::Symbol>;
-pub type ClangdNameMap = HashMap<String, symbols::Symbol>;
+pub type ClangdFileMap = BTreeMap<String, ClangdFile>;
+pub type ClangdIdMap = BTreeMap<symbols::SymbolId, symbols::Symbol>;
+pub type ClangdNameMap = BTreeMap<String, symbols::Symbol>;
 #[derive(Debug, Clone)]
 pub struct ClangdDatabase {
     pub file: ClangdFileMap,
@@ -112,6 +112,7 @@ pub struct ClangdReferences {
 
 #[derive(Debug, Clone, Default)]
 pub struct ClangdFileType {
+    #[allow(dead_code)]
     ftype: [u8;4],
 }
 
@@ -136,6 +137,7 @@ pub struct ClangdFile {
 }
 
 impl ClangdFile {
+    #[allow(dead_code)]
     pub async fn parse(p: PathBuf) -> ParseReturn {
         let _contents = fs::read(p.as_path());
         if _contents.is_err() {

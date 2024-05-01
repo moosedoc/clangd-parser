@@ -20,10 +20,12 @@ struct Cli {
 }
 
 fn main() {
+    #[allow(unused_variables, unused_assignments)]
+    let results;
     let timer = SystemTime::now();
     let args = Cli::parse();
     let p = PathBuf::from(args.path.as_str());
 
-    let results = clangd_parser::run(p);
+    results = clangd_parser::run(p);
     println!("Execution took {:.2}s.", timer.elapsed().unwrap().as_secs_f32());
 }

@@ -9,6 +9,7 @@ pub struct Cmdl {
 impl ClangdUtility for Cmdl{}
 
 impl Cmdl {
+    #[allow(dead_code)]
     pub fn parse(stream: &ChunkStream, string_tables: &Vec<String>) -> Vec<Self> {
         let mut cmdlines: Vec<Cmdl> = vec![];
         let _data = stream.data.clone();
