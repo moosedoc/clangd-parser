@@ -338,7 +338,7 @@ impl Symbol {
                 cursor += sz;
                 idx += 1;
             }
-            syms.push(s);
+            syms.push(s.clone());
             if cursor >= len {
                 break;
             }

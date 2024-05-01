@@ -54,7 +54,7 @@ pub trait ClangdUtility {
         if (idx as usize) < string_table.len() {
             s = string_table[ idx as usize ].clone();
         }
-
+        s = s.trim_end_matches("\0").to_string();
         (bytes_read, s)
     }
 
