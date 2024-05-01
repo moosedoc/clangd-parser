@@ -34,14 +34,20 @@ async fn _run(p: PathBuf) -> clangd::ClangdDatabase {
         if e.file_type().unwrap().is_file() {
             let _ret = clangd::ClangdFile::parse(e.path()).await;
             if _ret.is_ok() {
-                let mut fname = e.file_name().to_str().unwrap().to_string();
-                let parts: Vec<&str> = fname.split('.').collect();
-                fname = format!("{}.{}", parts[0], parts[1]);
+                let fname = e.file_name().to_str().unwrap().to_string();
+                let parts: Vec<&str> = fname.split(".").collect();
+                let fname = format!("{}.{}", parts[0], parts[1]);
                 let db = _ret.unwrap();
-                let _ = to_file.insert(fname, db.clone());
+                if !to_file.contains_key(&fname) {
+                    let _ = to_file.insert(fname, db.clone());
+                }
                 for sym in db.symbols.data.iter() {
-                    let _ = to_id.insert(sym.id.clone(), sym.clone());
-                    let _ = to_name.insert(sym.name.clone(), sym.clone());
+                    if !to_id.contains_key(&sym.id) {
+                        let _ = to_id.insert(sym.id.clone(), sym.clone());
+                    }
+                    if !to_name.contains_key(&sym.name) {
+                        let _ = to_name.insert(sym.name.clone(), sym.clone());
+                    }
                 }
             }
         }
