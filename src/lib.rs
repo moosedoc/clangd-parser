@@ -29,13 +29,13 @@ fn post_process(db: &mut clangd::ClangdDatabase) {
             SymbolKind::Variable => {
                 let decl_file = sym.canonical_declaration.file_uri.rsplit_once("/");
                 if decl_file.is_none() {
-                    panic!();
+                    debug_assert!(false);
                 }
                 let decl_file = decl_file.unwrap().1;
                 if decl_file.ends_with(".h") {
                     let hfile = db.file.get_mut(&decl_file.to_string());
                     if hfile.is_none() {
-                        panic!();
+                        debug_assert!(false);
                     }
                     let hfile = hfile.unwrap();
                     hfile.variable_declarations.push(sym.id.clone());
