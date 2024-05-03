@@ -9,16 +9,16 @@ use async_std::task;
 
 use std::fs;
 use std::path::PathBuf;
-use std::collections::HashMap;
+use std::collections::BTreeMap;
 
 pub fn run(p: PathBuf) -> clangd::ClangdDatabase {
     task::block_on(_run(p))
 }
 
 async fn _run(p: PathBuf) -> clangd::ClangdDatabase {
-    let mut to_file: clangd::ClangdFileMap = HashMap::new();
-    let mut to_id: clangd::ClangdIdMap = HashMap::new();
-    let mut to_name: clangd::ClangdNameMap = HashMap::new();
+    let mut to_file: clangd::ClangdFileMap = BTreeMap::new();
+    let mut to_id: clangd::ClangdIdMap = BTreeMap::new();
+    let mut to_name: clangd::ClangdNameMap = BTreeMap::new();
     let mut path = p.join(".cache");
     if !path.exists() {
         panic!("Unable to find .cache!");
@@ -38,10 +38,10 @@ async fn _run(p: PathBuf) -> clangd::ClangdDatabase {
                 let parts: Vec<&str> = fname.split('.').collect();
                 fname = format!("{}.{}", parts[0], parts[1]);
                 let db = _ret.unwrap();
-                let _ = to_file.entry(fname).or_insert(db.clone());
+                let _ = to_file.insert(fname, db.clone());
                 for sym in db.symbols.data.iter() {
-                    let _ = to_id.entry(sym.id.clone()).or_insert(sym.clone());
-                    let _ = to_name.entry(sym.name.clone()).or_insert(sym.clone());
+                    let _ = to_id.insert(sym.id.clone(), sym.clone());
+                    let _ = to_name.insert(sym.name.clone(), sym.clone());
                 }
             }
         }

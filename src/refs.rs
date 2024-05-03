@@ -19,6 +19,7 @@ pub struct Refs {
 impl ClangdUtility for Refs{}
 
 impl Refs {
+    #[allow(dead_code)]
     pub fn parse(buf: &ChunkStream, string_table: &Vec<String>) -> Vec<Refs> {
         let mut refs: Vec<Refs> = vec![];
         let mut cursor: usize = 0;

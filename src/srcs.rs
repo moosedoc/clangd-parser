@@ -33,6 +33,7 @@ pub struct Srcs {
 impl ClangdUtility for Srcs{}
 
 impl Srcs {
+    #[allow(dead_code)]
     pub fn parse(stream: &ChunkStream, string_table: &Vec<String>) -> Vec<Srcs> {
         let mut cursor: usize = 0;
         let mut idx: u32;
