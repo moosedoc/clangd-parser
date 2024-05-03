@@ -56,7 +56,8 @@ pub trait ClangdUtility {
         if (idx as usize) < string_table.len() {
             s = string_table[ idx as usize ].clone();
         }
-        s = s.trim_end_matches("\0").to_string();
+        s = s.trim_end_matches("\0")
+             .replace("%2B", "+").to_string();
         (bytes_read, s)
     }
 
@@ -134,6 +135,9 @@ pub struct ClangdFile {
     pub references: ClangdReferences,
     // RIFF file type
     pub file_type: ClangdFileType,
+
+    // CUSTOM -- non-clangd parsed data
+    pub variable_declarations: Vec<symbols::SymbolId>,
 }
 
 impl ClangdFile {

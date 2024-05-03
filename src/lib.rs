@@ -10,9 +10,40 @@ use async_std::task;
 use std::fs;
 use std::path::PathBuf;
 use std::collections::BTreeMap;
+use crate::symbols::SymbolKind;
 
 pub fn run(p: PathBuf) -> clangd::ClangdDatabase {
-    task::block_on(_run(p))
+    let mut db = task::block_on(_run(p));
+    post_process(&mut db);
+    db
+}
+
+fn post_process(db: &mut clangd::ClangdDatabase) {
+    // for each name
+    for entry in db.name.iter() {
+        let sym = entry.1;
+
+        match sym.syminfo.kind {
+            // For variables, check if declared in an H file.
+            // If so, map id in corresponding file entry
+            SymbolKind::Variable => {
+                let decl_file = sym.canonical_declaration.file_uri.rsplit_once("/");
+                if decl_file.is_none() {
+                    panic!();
+                }
+                let decl_file = decl_file.unwrap().1;
+                if decl_file.ends_with(".h") {
+                    let hfile = db.file.get_mut(&decl_file.to_string());
+                    if hfile.is_none() {
+                        panic!();
+                    }
+                    let hfile = hfile.unwrap();
+                    hfile.variable_declarations.push(sym.id.clone());
+                }
+            },
+            _ => ()
+        }
+    }
 }
 
 async fn _run(p: PathBuf) -> clangd::ClangdDatabase {
