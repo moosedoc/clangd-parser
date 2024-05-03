@@ -5,9 +5,9 @@
 
 Download links:
 
-SSH clone URL: ssh://git@git.jetbrains.space/socdoc/main/clangd-parser.git
+SSH clone URL: git@github.com:moosedoc/clangd-parser.git
 
-HTTPS clone URL: https://git.jetbrains.space/socdoc/main/clangd-parser.git
+HTTPS clone URL: https://github.com/moosedoc/clangd-parser.git
 
 
 
@@ -15,16 +15,8 @@ These instructions will get you a copy of the project up and running on your loc
 
 ## Prerequisites
 
-What things you need to install the software and how to install them.
-
-```
-Examples
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a production system.
+Ensure Rust is installed.
 
 ## Resources
 
-Add links to external resources for this project, such as CI server, bug tracker, etc.
+https://github.com/moosedoc/clangd-parser/issues
