@@ -26,6 +26,6 @@ fn main() {
     let args = Cli::parse();
     let p = PathBuf::from(args.path.as_str());
 
-    results = clangd_parser::run(p);
+    results = clangd_parser::run(&p);
     println!("Execution took {:.2}s.", timer.elapsed().unwrap().as_secs_f32());
 }

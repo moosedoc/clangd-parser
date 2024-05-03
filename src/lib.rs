@@ -12,7 +12,7 @@ use std::path::PathBuf;
 use std::collections::BTreeMap;
 use crate::symbols::SymbolKind;
 
-pub fn run(p: PathBuf) -> clangd::ClangdDatabase {
+pub fn run(p: &PathBuf) -> clangd::ClangdDatabase {
     let mut db = task::block_on(_run(p));
     post_process(&mut db);
     db
@@ -46,7 +46,7 @@ fn post_process(db: &mut clangd::ClangdDatabase) {
     }
 }
 
-async fn _run(p: PathBuf) -> clangd::ClangdDatabase {
+async fn _run(p: &PathBuf) -> clangd::ClangdDatabase {
     let mut to_file: clangd::ClangdFileMap = BTreeMap::new();
     let mut to_id: clangd::ClangdIdMap = BTreeMap::new();
     let mut to_name: clangd::ClangdNameMap = BTreeMap::new();
