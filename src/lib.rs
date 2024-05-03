@@ -18,6 +18,7 @@ pub fn run(p: PathBuf) -> clangd::ClangdDatabase {
 async fn _run(p: PathBuf) -> clangd::ClangdDatabase {
     let mut to_file: clangd::ClangdFileMap = HashMap::new();
     let mut to_id: clangd::ClangdIdMap = HashMap::new();
+    let mut to_name: clangd::ClangdNameMap = HashMap::new();
     let mut path = p.join(".cache");
     if !path.exists() {
         panic!("Unable to find .cache!");
@@ -39,11 +40,12 @@ async fn _run(p: PathBuf) -> clangd::ClangdDatabase {
                 let db = _ret.unwrap();
                 let _ = to_file.entry(fname).or_insert(db.clone());
                 for sym in db.symbols.data.iter() {
-                    let _ = to_id.entry(sym.id).or_insert(sym.clone());
+                    let _ = to_id.entry(sym.id.clone()).or_insert(sym.clone());
+                    let _ = to_name.entry(sym.name.clone()).or_insert(sym.clone());
                 }
             }
         }
     }
 
-    clangd::ClangdDatabase{ file: to_file, id: to_id }
+    clangd::ClangdDatabase{ file: to_file, id: to_id, name: to_name }
 }

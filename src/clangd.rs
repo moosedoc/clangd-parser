@@ -19,10 +19,12 @@ type ParseReturn = Result<ClangdFile, ParseError>;
 
 pub type ClangdFileMap = HashMap<String, ClangdFile>;
 pub type ClangdIdMap = HashMap<symbols::SymbolId, symbols::Symbol>;
+pub type ClangdNameMap = HashMap<String, symbols::Symbol>;
 #[derive(Debug, Clone)]
 pub struct ClangdDatabase {
     pub file: ClangdFileMap,
     pub id: ClangdIdMap,
+    pub name: ClangdNameMap,
 }
 
 pub trait ClangdUtility {
