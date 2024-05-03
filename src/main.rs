@@ -19,8 +19,8 @@ struct Cli {
     path: String,
 }
 
+#[allow(unused_variables, unused_assignments)]
 fn main() {
-    #[allow(unused_variables, unused_assignments)]
     let results;
     let timer = SystemTime::now();
     let args = Cli::parse();
