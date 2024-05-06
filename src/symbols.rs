@@ -261,8 +261,7 @@ impl Symbol {
     pub fn parse(stream: &ChunkStream, string_table: &Vec<String>) -> Vec<Symbol> {
         let mut syms: Vec<Symbol> = vec![];
         let len = stream.data.len();
-        let _data = stream.data.clone();
-        let data = _data.as_slice();
+        let data = stream.data.as_slice();
         if data.len() == 0 {
             return syms;
         }

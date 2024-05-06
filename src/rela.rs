@@ -33,8 +33,7 @@ impl Rela {
     pub fn parse(buf: &ChunkStream) -> Vec<Rela> {
         let mut rela: Vec<Rela> = vec![];
         let mut cursor: usize = 0;
-        let _data = buf.data.clone();
-        let data = _data.as_slice();
+        let data = buf.data.as_slice();
         if data.len() == 0 {
             return rela;
         }

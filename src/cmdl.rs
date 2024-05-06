@@ -12,8 +12,7 @@ impl Cmdl {
     #[allow(dead_code)]
     pub fn parse(stream: &ChunkStream, string_tables: &Vec<String>) -> Vec<Self> {
         let mut cmdlines: Vec<Cmdl> = vec![];
-        let _data = stream.data.clone();
-        let data: &[u8] = _data.as_slice();
+        let data: &[u8] = stream.data.as_slice();
         if data.len() == 0 {
             return cmdlines;
         }

@@ -136,7 +136,7 @@ pub struct ClangdFile {
     // RIFF file type
     pub file_type: ClangdFileType,
 
-    // CUSTOM -- non-clangd parsed data
+    #[cfg(feature="post-process")]
     pub variable_declarations: Vec<symbols::SymbolId>,
 }
 
@@ -213,8 +213,7 @@ impl ClangdFile {
 
     fn consume_string(data: &ChunkStream) -> Vec<String> {
         let v: Vec<String>;
-        let stream = data.data.clone();
-        let buf: &[u8] = stream.as_slice();
+        let buf: &[u8] = data.data.as_slice();
         let (sz, compr_sz) = Self::get_u32(buf);
         if compr_sz == 0 {
             // uncompressed

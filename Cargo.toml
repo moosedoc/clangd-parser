@@ -6,7 +6,8 @@ description = "Crate that parses clangd symbol cache, to then leverage in other 
 license = "MIT"
 repository = "https://github.com/moosedoc/clangd-parser"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[features]
+post-process = []
 
 [dependencies]
 async-std = "1.12.0"

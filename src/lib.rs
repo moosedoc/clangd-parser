@@ -1,3 +1,6 @@
+//! clangd-parser
+//! Parse the clangd output to leverage in other tools, such as test generation.
+
 pub mod clangd;
 pub mod symbols;
 pub mod rela;
@@ -12,12 +15,15 @@ use std::path::PathBuf;
 use std::collections::BTreeMap;
 use crate::symbols::SymbolKind;
 
+/// Given a root directory containing .cache/index, parse the IDX files
 pub fn run(p: &PathBuf) -> clangd::ClangdDatabase {
     let mut db = task::block_on(_run(p));
+    #[cfg(feature="post-process")]
     post_process(&mut db);
     db
 }
 
+#[cfg(feature="post-process")]
 fn post_process(db: &mut clangd::ClangdDatabase) {
     // for each name
     for entry in db.name.iter() {
